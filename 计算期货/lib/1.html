@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //mon: 资金，pri：价格，bzj：保证金比率，oneshou：一手多少吨，jc：涨百分几加一次仓，count：循环几次
+    var a = function (mon,pri,bzj,oneshou,jc,count) {
+        // var mon = 100000;
+        // var pri = 12000;
+        // var bzj = 0.15;
+        // var oneshou = 5;
+
+        //开始有多少手
+        var have_shou = Math.floor(mon / (pri * bzj * oneshou));
+        //开始市值
+        var have_shi = have_shou * pri * oneshou;
+
+        console.log(pri,have_shou, have_shi)
+
+        var zhuan = 0;
+        // var jc = 0.1;
+        // var count = 5;
+        for (var i = 0; i < count; i++) {
+            pri = pri * (1+jc);
+
+            var z_have_shou = Math.floor((have_shi * jc) / (pri * bzj * oneshou));
+
+            var z_have_shi = have_shi * (1+jc) + z_have_shou*pri*oneshou
+
+            zhuan += have_shi * jc;
+
+            have_shi = z_have_shi;
+            have_shou += z_have_shou;
+            
+            console.log(
+                `现价：${pri},\n增加：${z_have_shou} 手,\n一共持有: ${have_shou} 手,\n现在市值: ${have_shi},\n赚: ${zhuan} `
+            )
+        }
+    }
+</script>
